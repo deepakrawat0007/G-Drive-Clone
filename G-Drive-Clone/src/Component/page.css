@@ -1,0 +1,125 @@
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
+.h-custom {
+height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+.h-custom {
+height: 100%;
+}
+}
+
+
+.prompt {
+    position: fixed;
+    z-index: 2;
+    left: 25%;
+    top: 25%;
+}
+
+.figure img {
+    box-shadow: 5px 5px 5px 5px gray;
+    border-radius: 10px;
+    width: 15vw;
+    height: 15vw;
+    cursor: pointer;
+
+}
+
+.figure {
+    margin: 0;
+    position: relative;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 2%;
+    padding-left: 2%;
+}
+
+.data-container {
+    display: none;
+    position: absolute;
+    bottom: 1%;
+    color: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    font-size: 15px;
+
+}
+
+.figure:hover img {
+    transform: scale(1.1);
+}
+
+.figure:hover .data-container {
+    transform: scale(1.1);
+    display: block;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.data-container .del {
+    text-align: end;
+
+}
+
+.data-container .del button {
+    width: 5vw;
+    height: 7vh;
+    font-size: 20px;
+    border: 4px solid crimson;
+    border-radius: 10px;
+    background-color: transparent;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 55%;
+}
+.del button:nth-of-type(1){
+    border-color: green;
+    color: green;
+}
+
+.data-container .del button:hover {
+    background-color: red;
+    color: whitesmoke;
+}
+
+.data-container .del button:nth-of-type(1):hover{
+    background-color: green;
+    color: white;
+}
+.data-container .name {
+    font-weight: bold;
+}
+
+.data-container{
+    overflow: hidden;
+}
+.dropZone{
+    text-align: center;
+}
+.dropZone p , .dropZone img{
+    cursor: pointer;
+}
+
+
+.center{
+    display: flex;
+    justify-content: center;
+}
+.center button{
+    width: 20vw;
+    height: 7vh;
+    border-radius: 10px;
+}
