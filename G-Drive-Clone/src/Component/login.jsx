@@ -2,11 +2,13 @@ import "./page.css";
 import { useNavigate } from "react-router-dom";
 import { useState , useContext } from "react";
 import axios from "axios"
+import spinner from "../assets/Spinner-0.5s-164px.svg";
 import ToastContext from "./context/ToastContext";
 const API = "https://g-drive-api.onrender.com"
 
 const LoginPage = () => {
-  const {toast} = useContext(ToastContext)    
+  const {toast} = useContext(ToastContext) 
+  const [loading , setLoading] = useState(false)   
   const navigate = useNavigate("")
   const APICALL = async () => {
     await axios.post(API + "/login", {
@@ -14,6 +16,7 @@ const LoginPage = () => {
       password: data.password
     })
       .then((res) => {
+        setLoading(false)
         toast.success("Login Success")
         console.log(res.data)
         localStorage.setItem('token', res.data.Token)
@@ -21,6 +24,7 @@ const LoginPage = () => {
         localStorage.setItem('userId', res.data.userId)
         navigate("/list")
       }).catch((e) => {
+        setLoading(false)
         toast.error(e.response.data.message)
       })
   }
@@ -40,14 +44,13 @@ const LoginPage = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault()
-    const call = APICALL()
-    toast.promise(call ,{
-      loading:"...loading"
-    })
+    setLoading(true)
+    APICALL()
   }
 
   return (
     <section className="vh-100">
+       {loading?<div className="spinner"><img src={spinner} alt="spinner"/></div>:''}
       <div className="container-fluid h-custom">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-md-9 col-lg-6 col-xl-5">

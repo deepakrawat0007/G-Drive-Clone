@@ -2,9 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 import axios from "axios"
 import ToastContext from "./context/ToastContext"
+import spinner from "../assets/Spinner-0.5s-164px.svg";
 const API = "https://g-drive-api.onrender.com"
 const RegistrationPage = () => {
   const { toast } = useContext(ToastContext)
+  const [loading , setLoading] = useState(false)  
   const navigate = useNavigate("")
   const [data, setData] = useState({
     name: "",
@@ -20,9 +22,11 @@ const RegistrationPage = () => {
       password: data.password
     })
       .then((res) => {
+        setLoading(false)
         toast.success("Registered SuccessFully")
         navigate("/")
       }).catch((e) => {
+        setLoading(false)
         toast.error(e.response.data.message)
       })
   }
@@ -39,15 +43,14 @@ const RegistrationPage = () => {
     if (data.password !== data.password2) {
       return toast.error("Password Not Match")
     }
-    const call = APICALL()
-    toast.promise(call, {
-      loading: "...loading",
-    })
+    setLoading(true)
+    APICALL()
   }
 
   return (
 
     <section className="vh-100" style={{ backgroundColor: "#eee" }}>
+      {loading?<div className="spinner"><img src={spinner} alt="spinner"/></div>:''}
       <div className="container h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-lg-12 col-xl-11">
